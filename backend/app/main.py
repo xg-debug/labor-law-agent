@@ -1,29 +1,38 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
+from app.core.exceptions import register_exception_handlers
+from app.core.logging import setup_logging
+from app.routers.chat import router as chat_router
+from app.routers.contract import router as contract_router
+from app.routers.document import router as document_router
+from app.routers.health import router as health_router
+
+setup_logging()
+
 app = FastAPI(
-    title="My FastAPI Application",
+    title="Labor Law Agent Backend",
+    version="0.1.0",
 )
 
-# CORS 配置
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],     # 允许所有来源
-    allow_credentials=True,  # 允许发送 cookies
-    allow_methods=["*"],     # 允许所有 HTTP 方法
-    allow_headers=["*"],     # 允许所有 HTTP 头
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
+
+register_exception_handlers(app)
+app.include_router(health_router)
+app.include_router(chat_router)
+app.include_router(contract_router)
+app.include_router(document_router)
+
 
 @app.get("/", tags=["root"])
 async def root() -> dict:
-    return {"message": "Hello, World!"}
-
-@app.get("/health", tags=["health"])
-async def health_check() -> dict:
     return {
-        "status": "ok",
-        "service": "labor-law-agent-backend",
+        "message": "Labor Law Agent Backend is running",
+        "docs": "/docs",
     }
-
-
-# 后续在这里注册各种业务路由
