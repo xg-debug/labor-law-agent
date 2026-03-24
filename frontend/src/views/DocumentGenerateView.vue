@@ -1,11 +1,11 @@
 <template>
-  <div>
+  <div class="document-page">
     <h2 class="page-title">法律文书生成</h2>
     <p class="page-subtitle">根据事实与诉求生成文书初稿，可从咨询结果自动带入上下文。</p>
 
     <el-row :gutter="16">
       <el-col :md="11" :sm="24">
-        <el-card class="section-card">
+        <el-card class="section-card page-card" shadow="never">
           <template #header>生成参数</template>
 
           <el-form label-position="top">
@@ -48,7 +48,9 @@
       </el-col>
 
       <el-col :md="13" :sm="24">
-        <DocumentPreview :document="store.documentResult" />
+        <div class="preview-wrap">
+          <DocumentPreview :document="store.documentResult" />
+        </div>
       </el-col>
     </el-row>
   </div>
@@ -79,3 +81,29 @@ const backConsult = () => {
   router.push('/consult')
 }
 </script>
+
+<style scoped>
+.document-page {
+  max-width: 1240px;
+  margin: 0 auto;
+}
+
+.page-card {
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+}
+
+.preview-wrap {
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  padding: 2px;
+  background: #fff;
+}
+
+@media (min-width: 992px) {
+  .preview-wrap {
+    max-height: calc(100vh - 150px);
+    overflow-y: auto;
+  }
+}
+</style>

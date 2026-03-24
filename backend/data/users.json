@@ -1,0 +1,8 @@
+{
+  "debug_user": {
+    "account": "debug_user",
+    "nickname": "调试用户",
+    "salt": "09677364a08d9c47",
+    "password_hash": "df041eacccfbd6d8a128f97286b29fe385983d6f5c1ca554779e8812a8018580"
+  }
+}

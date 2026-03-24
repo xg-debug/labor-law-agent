@@ -67,3 +67,24 @@ class DocumentGenerateResponse(BaseModel):
 class HealthResponse(BaseModel):
     status: str
     service: str
+
+
+class AuthRegisterRequest(BaseModel):
+    account: str = Field(min_length=3, max_length=32)
+    password: str = Field(min_length=6, max_length=64)
+    nickname: str = Field(min_length=1, max_length=32)
+
+
+class AuthLoginRequest(BaseModel):
+    account: str = Field(min_length=3, max_length=32)
+    password: str = Field(min_length=6, max_length=64)
+
+
+class AuthUserInfo(BaseModel):
+    account: str
+    nickname: str
+
+
+class AuthLoginResponse(BaseModel):
+    token: str
+    user: AuthUserInfo
